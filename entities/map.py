@@ -25,9 +25,7 @@ class Map:
 
                 new_state = 0
                 if is_alive:
-                    if neighbors < 2:
-                        new_state = 0
-                    elif neighbors > 3:
+                    if neighbors < 2 or neighbors > 3:
                         new_state = 0
                     else:
                         new_state = 1
@@ -44,10 +42,16 @@ class Map:
             print("\n")
         print("\n\n")
 
-    def get_cell(self, row, col):
-        if row < 0 or col < 0:
-            return 0
+    def get_cell(self, row_idx, col_idx):
         try:
-            return self.map[row][col]
+            row = self.map[row_idx]
         except IndexError:
-            return 0
+            row = self.map[-1]
+
+        try:
+            col = row[col_idx]
+        except IndexError:
+            col = row[-1]
+
+        return col
+
